@@ -3,6 +3,7 @@ import Movies from "./Movies"
 import Session from "./Session"
 import GlobalStyle from "./GlobalStyle"
 import Seats from "./Seats"
+import Success from "./Success"
 
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import styled from "styled-components"
@@ -16,6 +17,7 @@ export default function App() {
                 <Route path="/" element={<Movies TitleContainer={TitleContainer}/>}/>
                 <Route path="/sessoes/:movieId" element={<Session TitleContainer={TitleContainer}/>}/>
                 <Route path="/assentos/:seatId" element={<Seats TitleContainer={TitleContainer}/>} />
+                <Route path="/sucesso" element={<Success />} />
             </Routes>
         </BrowserRouter>
     )

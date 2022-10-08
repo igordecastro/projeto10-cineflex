@@ -1,19 +1,41 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
+import axios from "axios"
+import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
-import styled from "styled-components";
+import styled from "styled-components"
+import colors from "./colors"
+import Description from "./Description"
+import Form from "./Form"
 
 export default function Seats({ TitleContainer }) {
     const [seats, setSeats] = useState([])
-    const { seatId } = useParams();
+    const [selectedSeats, setSelectedSeats] = useState([]);
+    const { seatId } = useParams()
+    const { GREY, GREY_BORDER, GREEN, GREEN_BORDER, YELLOW, YELLOW_BORDER } = colors
 
     useEffect(() => {
         const URL = `https://mock-api.driven.com.br/api/v5/cineflex/showtimes/${seatId}/seats`
         const promise = axios.get(URL)
         promise.then(res => setSeats(res.data))
         promise.catch(err => alert(err.message))
-        console.log(seats)
+
     }, [])
+
+    function checkAvailability(obj) {
+        if (obj.isAvailable && selectedSeats.includes(obj.id)) {
+            return [GREEN, GREEN_BORDER]
+        } else if (obj.isAvailable) {
+            return [GREY, GREY_BORDER]
+        } else return [YELLOW, YELLOW_BORDER]
+    }
+
+    function selectSeat(seatToBeSelected) {
+        if (!selectedSeats.includes(seatToBeSelected.id) && seatToBeSelected.isAvailable) {
+            setSelectedSeats([...selectedSeats, seatToBeSelected.id])
+        } else if (selectedSeats.includes(seatToBeSelected.id)){
+            const newSeats = selectedSeats.filter(seat => seat !== seatToBeSelected.id)
+            setSelectedSeats(newSeats)
+        } else alert("Esse assento não está disponível")
+    }
 
     if (seats.seats === null || seats.seats === undefined) {
         return <TitleContainer>Carregando...</TitleContainer>
@@ -23,23 +45,21 @@ export default function Seats({ TitleContainer }) {
         <>
             <TitleContainer>Selecione o(s) assento(s)</TitleContainer>
             <SeatsContainer>
-                {seats.seats.map((s) =>
-                    <SeatContainer>{s.name}</SeatContainer>
+                {seats.seats.map((s, index) =>
+                    <SeatContainer
+                        key={index}
+                        color={checkAvailability(s)}
+                        onClick={() => selectSeat(s)}
+                    >
+                        {s.name > 9 ? s.name : `0${s.name}`}
+                    </SeatContainer>
                 )}
-                <div>
-
-                </div>
             </SeatsContainer>
-            <FormContainer>
-                <label htmlFor="name">Nome do comprador:</label>
-                <input id="name" type="text" placeholder="Digite seu nome..." />
-                <label htmlFor="cpf">CPF do comprador:</label>
-                <input id="cpf" type="text" placeholder="Digite seu CPF..." />
-            </FormContainer>
+            <Description SeatContainer={SeatContainer} />
+            <Form selectedSeats={selectedSeats}/>
         </>
     )
 }
-
 const SeatsContainer = styled.div`
     width: 342px;
     display: flex;
@@ -54,37 +74,18 @@ const SeatContainer = styled.div`
         box-sizing: border-box;
         width: 26px;
         height: 26px;
-        background: #C3CFD9;
-        border: 1px solid #808F9D;
+        background: ${props => props.color[0]};
+        border: 1px solid ${props => props.color[1]};
         border-radius: 12px;
-`
-const FormContainer = styled.form`
-    display: flex;
-    flex-direction: column;
-    margin: 30px auto;
-    align-items: center;
-    label {
-        width: 327px;
-        height: 25px;
+        cursor: pointer;
         font-family: 'Roboto';
         font-style: normal;
         font-weight: 400;
-        font-size: 18px;
-        line-height: 21px;
+        font-size: 11px;
+        line-height: 13px;
         display: flex;
         align-items: center;
-        color: #293845;
-    }
-    input {
-        box-sizing: border-box;
-        width: 327px;
-        height: 51px;
-        background: #FFFFFF;
-        border: 1px solid #D5D5D5;
-        border-radius: 3px;
-    }
-    input::placeholder{
-        color: #AFAFAF;
-        font-style: italic;
-    }
+        text-align: center;
+        letter-spacing: 0.04em;
+        color: #000000;
 `
