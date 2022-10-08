@@ -1,41 +1,45 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
+import { Link } from "react-router-dom"
 import styled from "styled-components"
 
-export default function Movies() {
+export default function Movies({ TitleContainer }) {
     const [movies, setMovies] = useState(null)
 
     useEffect(() => {
         const URL = "https://mock-api.driven.com.br/api/v8/cineflex/movies"
         const promise = axios.get(URL)
         promise.then((res) => setMovies(res.data))
-        
+
     }, [])
 
-    if(movies === null) {
+    if (movies === null) {
         return "Carregando..."
     }
-    
-    return (
+
+    return (<>
+        <TitleContainer>Selecione o Filme</TitleContainer>
         <MoviesContainer>
             {movies.map((m) =>
-                <Movie key={m.id}>
+            <Link to={`sessoes/${m.id}`} key={m.id}>
+                <MovieContainer >
                     <div>
-                        <img src={m.posterURL} alt="Movie Poster"/>
+                        <img src={m.posterURL} alt="Movie Poster" />
                     </div>
-                </Movie>)}
+                </MovieContainer>
+            </Link>)}
         </MoviesContainer>
+    </>
     )
 }
 
 const MoviesContainer = styled.div`
     width: 420px;
-    height: 250px;
     display: flex;
     flex-wrap: wrap;
-    margin: 90px auto;
+    margin: 0 auto;
 `
-const Movie = styled.div`
+const MovieContainer = styled.div`
     div {
         background: #FFFFFF;
         width: 145px;

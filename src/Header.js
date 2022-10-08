@@ -9,7 +9,8 @@ export default function Header() {
 }
 
 const HeaderContainer = styled.div`
-    position: absolute;
+    position: fixed;
+    z-index: 1;
     width: 100%;
     height: 67px;
     left: 0px;
