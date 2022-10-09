@@ -7,17 +7,35 @@ import Success from "./Success"
 
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import styled from "styled-components"
+import { useState } from "react"
 
 export default function App() {
+    const [seats, setSeats] = useState([])
+    const [selectedSeats, setSelectedSeats] = useState([]);
+    const [form, setForm] = useState({
+        name: "",
+        cpf: ""
+    })
+
     return (
         <BrowserRouter>
             <GlobalStyle />
             <Header />
             <Routes>
-                <Route path="/" element={<Movies TitleContainer={TitleContainer}/>}/>
-                <Route path="/sessoes/:movieId" element={<Session TitleContainer={TitleContainer}/>}/>
-                <Route path="/assentos/:seatId" element={<Seats TitleContainer={TitleContainer}/>} />
-                <Route path="/sucesso" element={<Success />} />
+                <Route path="/" element={<Movies TitleContainer={TitleContainer} />} />
+                <Route path="/sessoes/:movieId" element={<Session TitleContainer={TitleContainer} />} />
+                <Route path="/assentos/:seatId" element={
+                    <Seats
+                        TitleContainer={TitleContainer}
+                        seats={seats}
+                        setSeats={setSeats}
+                        selectedSeats={selectedSeats}
+                        setSelectedSeats={setSelectedSeats}
+                        form={form}
+                        setForm={setForm}
+                    />}
+                />
+                <Route path="/sucesso" element={<Success seats={seats} selectedSeats={selectedSeats} form={form}/>} />
             </Routes>
         </BrowserRouter>
     )

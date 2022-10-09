@@ -1,6 +1,8 @@
+import { useNavigate } from "react-router-dom"
 import styled from "styled-components"
 
-export default function Success() {
+export default function Success({ seats, form, selectedSeats }) {
+    const navigate = useNavigate();
     return (
         <>
             <SuccessTitleContainer>
@@ -8,15 +10,15 @@ export default function Success() {
             </SuccessTitleContainer>
             <InfosContainer>
                 <h1>FIlme e sessão</h1>
-                <p>Enola Holmes</p>
-                <p>24/06/2021</p>
+                <p>{seats.movie.title}</p>
+                <p>{`${seats.day.date} - ${seats.name}`}</p>
                 <h1>Ingressos</h1>
-                <p>Assento 15</p>
-                <p>Assento 16</p>
+                    {selectedSeats.map((s) => 
+                    <p key={s.name}>Assento {s.name}</p>)}
                 <h1>Comprador</h1>
-                <p>Nome: </p>
-                <p>CPF: </p>
-                <ButtonHomeContainer>Voltar para home</ButtonHomeContainer>
+                <p>Nome: {form.name}</p>
+                <p>CPF: {form.cpf}</p>
+                <ButtonHomeContainer onClick={() => navigate("/")}>Voltar para home</ButtonHomeContainer>
             </InfosContainer>
         </>)
 }
@@ -26,9 +28,6 @@ const SuccessTitleContainer = styled.div`
     font-family: 'Roboto';
     font-style: normal;
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
     font-weight: 700;
     font-size: 24px;
     line-height: 28px;

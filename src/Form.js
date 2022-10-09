@@ -1,15 +1,14 @@
 import axios from "axios"
-import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import styled from "styled-components"
 
-export default function Form({ selectedSeats }) {
+export default function Form({ selectedSeats, form, setForm }) {
     const navigate = useNavigate();
-    const [form, setForm] = useState({
-        name: "",
-        cpf: ""
-    })
+    const selectedSeatsIds = [];
 
+    selectedSeats.forEach(e => {
+        selectedSeatsIds.push(e.id)
+    });
     function handleForm(e) {
         setForm({
             ...form,
@@ -22,7 +21,7 @@ export default function Form({ selectedSeats }) {
 
         const URL = "https://mock-api.driven.com.br/api/v5/cineflex/seats/book-many"
         const promise = axios.post(URL, {
-            ids: selectedSeats,
+            ids: selectedSeatsIds,
             name: form.name,
             cpf: form.cpf
         })

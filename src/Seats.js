@@ -1,14 +1,12 @@
 import axios from "axios"
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 import { useParams } from "react-router-dom"
 import styled from "styled-components"
 import colors from "./colors"
 import Description from "./Description"
 import Form from "./Form"
 
-export default function Seats({ TitleContainer }) {
-    const [seats, setSeats] = useState([])
-    const [selectedSeats, setSelectedSeats] = useState([]);
+export default function Seats({ TitleContainer, seats, setSeats, selectedSeats, setSelectedSeats, form, setForm }) {
     const { seatId } = useParams()
     const { GREY, GREY_BORDER, GREEN, GREEN_BORDER, YELLOW, YELLOW_BORDER } = colors
 
@@ -21,7 +19,7 @@ export default function Seats({ TitleContainer }) {
     }, [])
 
     function checkAvailability(obj) {
-        if (obj.isAvailable && selectedSeats.includes(obj.id)) {
+        if (obj.isAvailable && selectedSeats.includes(obj)) {
             return [GREEN, GREEN_BORDER]
         } else if (obj.isAvailable) {
             return [GREY, GREY_BORDER]
@@ -29,10 +27,12 @@ export default function Seats({ TitleContainer }) {
     }
 
     function selectSeat(seatToBeSelected) {
-        if (!selectedSeats.includes(seatToBeSelected.id) && seatToBeSelected.isAvailable) {
-            setSelectedSeats([...selectedSeats, seatToBeSelected.id])
-        } else if (selectedSeats.includes(seatToBeSelected.id)){
-            const newSeats = selectedSeats.filter(seat => seat !== seatToBeSelected.id)
+        console.log(seatToBeSelected)
+        console.log(selectedSeats)
+        if (!selectedSeats.includes(seatToBeSelected) && seatToBeSelected.isAvailable) {
+            setSelectedSeats([...selectedSeats, seatToBeSelected])
+        } else if (selectedSeats.includes(seatToBeSelected)){
+            const newSeats = selectedSeats.filter(seat => seat !== seatToBeSelected)
             setSelectedSeats(newSeats)
         } else alert("Esse assento não está disponível")
     }
@@ -56,7 +56,7 @@ export default function Seats({ TitleContainer }) {
                 )}
             </SeatsContainer>
             <Description SeatContainer={SeatContainer} />
-            <Form selectedSeats={selectedSeats}/>
+            <Form selectedSeats={selectedSeats} form={form} setForm={setForm}/>
         </>
     )
 }
