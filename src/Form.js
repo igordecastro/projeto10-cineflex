@@ -43,7 +43,7 @@ export default function Form({ selectedSeats, form, setForm }) {
 const FormContainer = styled.form`
     display: flex;
     flex-direction: column;
-    margin: 30px auto;
+    margin: 30px auto 130px auto;
     align-items: center;
     label {
         width: 327px;

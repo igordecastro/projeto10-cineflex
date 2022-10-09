@@ -7,6 +7,7 @@ import Description from "./Description"
 import Form from "./Form"
 
 export default function Seats({ TitleContainer, seats, setSeats, selectedSeats, setSelectedSeats, form, setForm }) {
+    console.log(seats)
     const { seatId } = useParams()
     const { GREY, GREY_BORDER, GREEN, GREEN_BORDER, YELLOW, YELLOW_BORDER } = colors
 
@@ -31,7 +32,7 @@ export default function Seats({ TitleContainer, seats, setSeats, selectedSeats, 
         console.log(selectedSeats)
         if (!selectedSeats.includes(seatToBeSelected) && seatToBeSelected.isAvailable) {
             setSelectedSeats([...selectedSeats, seatToBeSelected])
-        } else if (selectedSeats.includes(seatToBeSelected)){
+        } else if (selectedSeats.includes(seatToBeSelected)) {
             const newSeats = selectedSeats.filter(seat => seat !== seatToBeSelected)
             setSelectedSeats(newSeats)
         } else alert("Esse assento não está disponível")
@@ -56,7 +57,16 @@ export default function Seats({ TitleContainer, seats, setSeats, selectedSeats, 
                 )}
             </SeatsContainer>
             <Description SeatContainer={SeatContainer} />
-            <Form selectedSeats={selectedSeats} form={form} setForm={setForm}/>
+            <Form selectedSeats={selectedSeats} form={form} setForm={setForm} />
+            <HeaderContainer>
+                <span>
+                    <img src={seats.movie.posterURL} />
+                </span>
+                <div>
+                    <h2>{seats.movie.title}</h2>
+                    <h2>{`${seats.day.weekday} - ${seats.name}`}</h2>
+                </div>
+            </HeaderContainer>
         </>
     )
 }
@@ -88,4 +98,42 @@ const SeatContainer = styled.div`
         text-align: center;
         letter-spacing: 0.04em;
         color: #000000;
+`
+const HeaderContainer = styled.div`
+    position: fixed;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 117px;
+    bottom: 0;
+    left: 0;
+    background: #DFE6ED;
+    border: 1px solid #9EADBA;
+    
+    span{
+        margin-left: 10px;
+        width: 64px;
+        height: 89px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #FFFFFF;
+        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+        border-radius: 2px;
+    }
+    img{
+        width: 48px;
+        height: 72px;
+    }
+    h2{
+        margin-left: 14px;
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 26px;
+        line-height: 30px;
+        display: flex;
+        align-items: center;
+        color: #293845;
+    }
 `

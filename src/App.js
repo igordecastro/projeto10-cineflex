@@ -10,6 +10,7 @@ import styled from "styled-components"
 import { useState } from "react"
 
 export default function App() {
+    const [movies, setMovies] = useState(null)
     const [seats, setSeats] = useState([])
     const [selectedSeats, setSelectedSeats] = useState([]);
     const [form, setForm] = useState({
@@ -22,8 +23,8 @@ export default function App() {
             <GlobalStyle />
             <Header />
             <Routes>
-                <Route path="/" element={<Movies TitleContainer={TitleContainer} />} />
-                <Route path="/sessoes/:movieId" element={<Session TitleContainer={TitleContainer} />} />
+                <Route path="/" element={<Movies movies={movies} setMovies={setMovies} TitleContainer={TitleContainer} />} />
+                <Route path="/sessoes/:movieId" element={<Session movies={movies} TitleContainer={TitleContainer} />} />
                 <Route path="/assentos/:seatId" element={
                     <Seats
                         TitleContainer={TitleContainer}

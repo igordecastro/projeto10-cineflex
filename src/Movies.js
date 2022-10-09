@@ -3,8 +3,7 @@ import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import styled from "styled-components"
 
-export default function Movies({ TitleContainer }) {
-    const [movies, setMovies] = useState(null)
+export default function Movies({ TitleContainer, movies, setMovies }) {
 
     useEffect(() => {
         const URL = "https://mock-api.driven.com.br/api/v8/cineflex/movies"
@@ -24,7 +23,7 @@ export default function Movies({ TitleContainer }) {
             <Link to={`sessoes/${m.id}`} key={m.id}>
                 <MovieContainer >
                     <div>
-                        <img src={m.posterURL} alt="Movie Poster" />
+                        <img src={m.posterURL} alt={m.title} />
                     </div>
                 </MovieContainer>
             </Link>)}
