@@ -6,13 +6,12 @@ import styled from "styled-components"
 export default function Session({ TitleContainer, movies }) {
     const [session, setSession] = useState(null)
     const { movieId } = useParams()
-    console.log(movies)
 
     useEffect(() => {
         const URL = `https://mock-api.driven.com.br/api/v5/cineflex/movies/${movieId}/showtimes`
         const promise = axios.get(URL)
         promise.then(res => setSession(res.data))
-        promise.catch(err => console.log(err.message))
+        promise.catch(err => alert.log(err.message))
     }, [])
 
 

@@ -7,7 +7,6 @@ import Description from "./Description"
 import Form from "./Form"
 
 export default function Seats({ TitleContainer, seats, setSeats, selectedSeats, setSelectedSeats, form, setForm }) {
-    console.log(seats)
     const { seatId } = useParams()
     const { GREY, GREY_BORDER, GREEN, GREEN_BORDER, YELLOW, YELLOW_BORDER } = colors
 
@@ -28,8 +27,6 @@ export default function Seats({ TitleContainer, seats, setSeats, selectedSeats, 
     }
 
     function selectSeat(seatToBeSelected) {
-        console.log(seatToBeSelected)
-        console.log(selectedSeats)
         if (!selectedSeats.includes(seatToBeSelected) && seatToBeSelected.isAvailable) {
             setSelectedSeats([...selectedSeats, seatToBeSelected])
         } else if (selectedSeats.includes(seatToBeSelected)) {
@@ -61,7 +58,7 @@ export default function Seats({ TitleContainer, seats, setSeats, selectedSeats, 
             <Form selectedSeats={selectedSeats} form={form} setForm={setForm} />
             <HeaderContainer>
                 <span>
-                    <img src={seats.movie.posterURL} />
+                    <img src={seats.movie.posterURL} alt="filme selecionado"/>
                 </span>
                 <div data-identifier="movie-and-session-infos-preview">
                     <h2>{seats.movie.title}</h2>

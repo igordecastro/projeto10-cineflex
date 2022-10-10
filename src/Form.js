@@ -30,9 +30,9 @@ export default function Form({ selectedSeats, form, setForm }) {
     return (
         <FormContainer onSubmit={makeReservation}>
             <label htmlFor="name">Nome do comprador:</label>
-            <input data-identifier="buyer-name-input" onChange={handleForm} value={form.name} name="name" type="text" placeholder="Digite seu nome..." />
+            <input required data-identifier="buyer-name-input" onChange={handleForm} value={form.name} name="name" type="text" placeholder="Digite seu nome..." />
             <label htmlFor="cpf">CPF do comprador:</label>
-            <input data-identifier="buyer-cpf-input" onChange={handleForm} value={form.cpf} name="cpf" type="text" placeholder="Digite seu CPF..." />
+            <input required data-identifier="buyer-cpf-input" onChange={handleForm} value={form.cpf} name="cpf" type="number" placeholder="Digite seu CPF..." />
             <ButtonReservationContainer>
                 <button data-identifier="reservation-btn">Reservar assento(s)</button>
             </ButtonReservationContainer>
