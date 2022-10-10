@@ -9,16 +9,16 @@ export default function Success({ seats, form, selectedSeats }) {
                 <p>Pedido feito com sucesso!</p>
             </SuccessTitleContainer>
             <InfosContainer>
-                <h1>FIlme e sessão</h1>
-                <p>{seats.movie.title}</p>
-                <p>{`${seats.day.date} - ${seats.name}`}</p>
+                <h1>Filme e sessão</h1>
+                <p data-identifier="movie-session-infos-reserve-finished">{seats.movie.title}</p>
+                <p data-identifier="movie-session-infos-reserve-finished">{`${seats.day.date} - ${seats.name}`}</p>
                 <h1>Ingressos</h1>
                     {selectedSeats.map((s) => 
-                    <p key={s.name}>Assento {s.name}</p>)}
+                    <p data-identifier="seat-infos-reserve-finished" key={s.name}>Assento {s.name}</p>)}
                 <h1>Comprador</h1>
-                <p>Nome: {form.name}</p>
-                <p>CPF: {form.cpf}</p>
-                <ButtonHomeContainer onClick={() => navigate("/")}>Voltar para home</ButtonHomeContainer>
+                <p data-identifier="buyer-infos-reserve-finished">Nome: {form.name}</p>
+                <p data-identifier="buyer-infos-reserve-finished">CPF: {form.cpf}</p>
+                <ButtonHomeContainer data-identifier="back-to-home-btn" onClick={() => navigate("/")}>Voltar para home</ButtonHomeContainer>
             </InfosContainer>
         </>)
 }

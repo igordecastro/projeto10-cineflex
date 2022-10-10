@@ -29,10 +29,10 @@ export default function Session({ TitleContainer, movies }) {
                         ?
                         session.days.map((d, index) =>
                             <div key={index} >
-                                <p>{`${d.weekday} - ${d.date}`}</p>
+                                <p data-identifier="session-date">{`${d.weekday} - ${d.date}`}</p>
                                 {d.showtimes.map((s, index) =>
                                     <Link key={index} to={`/assentos/${s.id}`}>
-                                        <button>{s.name}</button>
+                                        <button data-identifier="hour-minute-btn">{s.name}</button>
                                     </Link>)}
                             </div>)
                         :
@@ -40,7 +40,7 @@ export default function Session({ TitleContainer, movies }) {
                 }
             </SessionContainer>
             <HeaderContainer>
-                <div>
+                <div data-identifier="movie-img-preview">
                     <img src={movies[movieId -1].posterURL} />
                 </div>
                 <h2>{movies[movieId - 1].title}</h2>

@@ -51,6 +51,7 @@ export default function Seats({ TitleContainer, seats, setSeats, selectedSeats, 
                         key={index}
                         color={checkAvailability(s)}
                         onClick={() => selectSeat(s)}
+                        data-identifier="seat"
                     >
                         {s.name > 9 ? s.name : `0${s.name}`}
                     </SeatContainer>
@@ -62,7 +63,7 @@ export default function Seats({ TitleContainer, seats, setSeats, selectedSeats, 
                 <span>
                     <img src={seats.movie.posterURL} />
                 </span>
-                <div>
+                <div data-identifier="movie-and-session-infos-preview">
                     <h2>{seats.movie.title}</h2>
                     <h2>{`${seats.day.weekday} - ${seats.name}`}</h2>
                 </div>

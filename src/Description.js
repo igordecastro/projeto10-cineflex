@@ -7,15 +7,15 @@ export default function Description({ SeatContainer }) {
     return(
         <DescriptionContainer>
                     <div>
-                        <SeatContainer color={[GREEN, GREEN_BORDER]} />
+                        <SeatContainer data-identifier="seat-selected-subtitle" color={[GREEN, GREEN_BORDER]} />
                         <p>Selecionado</p>
                     </div>
                     <div>
-                        <SeatContainer color={[GREY, GREY_BORDER]} />
+                        <SeatContainer data-identifier="seat-available-subtitle" color={[GREY, GREY_BORDER]} />
                         <p>Disponível</p>
                     </div>
                     <div>
-                        <SeatContainer color={[YELLOW, YELLOW_BORDER]} />
+                        <SeatContainer data-identifier="seat-unavailable-subtitle" color={[YELLOW, YELLOW_BORDER]} />
                         <p>Indisponível</p>
                     </div>
                 </DescriptionContainer>

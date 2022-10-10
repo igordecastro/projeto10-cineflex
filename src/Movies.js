@@ -22,7 +22,7 @@ export default function Movies({ TitleContainer, movies, setMovies }) {
             {movies.map((m) =>
             <Link to={`sessoes/${m.id}`} key={m.id}>
                 <MovieContainer >
-                    <div>
+                    <div data-identifier="movie-outdoor">
                         <img src={m.posterURL} alt={m.title} />
                     </div>
                 </MovieContainer>
